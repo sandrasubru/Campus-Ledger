@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Ledger - Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="admin_dashboard.css">
+</head>
+<body>
+    <div class="background-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+    
+    <div class="dashboard-container">
+        <nav class="top-nav glass-panel fade-in-up">
+            <h1 class="logo-small">CampusLedger Admin</h1>
+            <div class="nav-right">
+                <a href="admin_dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="send_tokens.html" class="nav-link">Send Tokens</a>
+                <a href="add_events.html" class="nav-link">Add Event</a>
+                <button id="connect-wallet-btn" class="connect-btn">Connect Wallet</button>
+            </div>
+        </nav>
+
+        <div class="admin-stats-box glass-panel fade-in-up delay-1">
+            <div class="club-title-row">
+                <div class="club-name-group">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=ec4899&color=fff" alt="Admin" class="club-logo-img">
+                    <div>
+                        <div class="club-label">Admin Portal</div>
+                        <h2 class="club-name user-name">Admin</h2>
+                        <button class="logout-btn-minimal" onclick="logoutUser()">
+                            <span>🚪</span> Logout
+                        </button>
+                    </div>
+                </div>
+                <div class="wallet-group">
+                    <span class="admin-address wallet-address" data-full-address="">0x...</span>
+                </div>
+            </div>
+            <div class="stats-grid" style="display: flex; gap: 2rem; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem;">
+                <div class="stat-card" style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <h3 style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin: 0;">Total Distributed</h3>
+                    <span class="stat-value text-danger" id="total-sent" style="font-size: 1.4rem; font-weight: 700;">0 CTK</span>
+                </div>
+                <div class="stat-card" style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <h3 style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin: 0;">Total Received</h3>
+                    <span class="stat-value text-accent" id="total-received" style="font-size: 1.4rem; font-weight: 700;">0 CTK</span>
+                </div>
+                <div class="stat-card" style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <h3 style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin: 0;">Treasury Balance</h3>
+                    <span class="stat-value text-accent balance-amount" style="font-size: 1.4rem; font-weight: 700;">0 CTK</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="transactions-section glass-panel fade-in-up delay-2">
+            <h2 class="section-title">Master Ledger</h2>
+            <div class="scrollable-table-container">
+                <table class="data-table">
+                    <thead><tr><th>Date</th><th>From</th><th>To</th><th>Amount</th><th>Purpose</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" type="application/javascript"></script>
+    <script src="script.js"></script>
+</body>
+</html>

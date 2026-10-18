@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Ledger - Admin Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="student_login.css">
+</head>
+<body>
+    <div class="background-orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="logo fade-in-up">CampusLedger</h1>
+        </header>
+
+        <div class="glass-box login-box fade-in-up delay-1">
+            <h2 class="welcome-text">Admin Sign Up</h2>
+            <form class="login-form" id="admin-signup-form">
+                <div class="form-group">
+                    <label for="username">Admin Username</label>
+                    <input type="text" id="username" placeholder="Choose admin username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="club_name">Club Name</label>
+                    <input type="text" id="club_name" placeholder="e.g. TINKERHUB" required>
+                </div>
+                <div class="form-group">
+                    <label for="wallet_address">Treasury Wallet Address</label>
+                    <input type="text" id="wallet_address" placeholder="0x..." required>
+                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 5px;">Where student tokens will be sent</p>
+                </div>
+                <div id="signup-error" style="color: #ef4444; font-size: 0.95rem; display: none; text-align: center; margin-bottom: 0.8rem; background: rgba(239, 68, 68, 0.1); padding: 0.5rem; border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.3);">Error message</div>
+                
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary submit-btn">
+                        <span class="btn-text">Sign Up</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='admin_login.html'">
+                        <span class="btn-text">Back to Login</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('admin-signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const club_name = document.getElementById('club_name').value;
+            const wallet_address = document.getElementById('wallet_address').value;
+            const errorMsg = document.getElementById('signup-error');
+            const submitBtn = document.querySelector('.submit-btn .btn-text');
+            
+            errorMsg.style.display = 'none';
+            submitBtn.innerText = 'Creating Admin...';
+            
+            try {
+                const response = await fetch('/api/signup/admin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, club_name, wallet_address })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    submitBtn.innerText = 'Success! Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = 'admin_login.html';
+                    }, 1500);
+                } else {
+                    errorMsg.innerText = data.message;
+                    errorMsg.style.display = 'block';
+                    submitBtn.innerText = 'Sign Up';
+                }
+            } catch (err) {
+                console.error(err);
+                errorMsg.innerText = "Error connecting to server.";
+                errorMsg.style.display = 'block';
+                submitBtn.innerText = 'Sign Up';
+            }
+        });
+    </script>
+</body>
+</html>

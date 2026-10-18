@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# Database
+campus_ledger.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Gemini / Antigravity
+.gemini/
+brain/
+*webp
+*png
+*jpg
+*img
